@@ -6,7 +6,6 @@ import plotly.express as px
 
 st.set_page_config(page_title="Crypto Price Tracker", layout="wide")
 
-# --- Sidebar ---
 st.sidebar.title("⚙️ Settings")
 crypto_options = ['bitcoin', 'ethereum', 'ripple', 'dogecoin']
 selected_crypto = st.sidebar.selectbox("Select Cryptocurrency", crypto_options, key="crypto_select")
@@ -23,7 +22,6 @@ refresh_interval = interval_options[selected_interval_label]
 if refresh_interval > 0:
     st_autorefresh(interval=refresh_interval * 1000, key=f"refresh_{refresh_interval}")
 
-# --- Fetch Prices Function ---
 def fetch_crypto_prices(crypto_id):
     try:
         url = "https://api.coingecko.com/api/v3/coins/markets"
@@ -45,7 +43,6 @@ def fetch_crypto_prices(crypto_id):
         st.error(f"Error fetching data: {e}")
         return None
 
-# --- Load Data ---
 df = fetch_crypto_prices(selected_crypto)
 
 if df is None or df.empty:
